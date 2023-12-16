@@ -14,6 +14,7 @@ import { AuthResponse } from '@/response';
 import * as bcrypt from 'bcrypt';
 import * as config from 'config';
 import { TokenPayload } from '@/interface';
+import { v4 as uuid } from 'uuid';
 
 const jwtConfig = config.get('jwt');
 
@@ -26,14 +27,14 @@ export class AuthService {
   ) {}
 
   async signUp(signUpDto: UserDto.SignUpDto) {
-    const { name, userId, password } = signUpDto;
-
+    const { name, userName, password } = signUpDto;
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
     const user: User = this.userRepository.create({
+      userId: uuid(),
       name,
-      userId,
+      userName,
       password: hashedPassword,
     });
 
@@ -49,9 +50,8 @@ export class AuthService {
   }
 
   async signIn(signInDto: UserDto.SignInDto): Promise<AuthResponse.SignIn> {
-    const { userId, password } = signInDto;
-
-    const user = await this.findOneByUserId(userId);
+    const { userName, password } = signInDto;
+    const user = await this.findOneByUserName(userName);
 
     if (!user) {
       throw new HttpException('NOT_FOUND', HttpStatus.NOT_FOUND);
@@ -64,8 +64,8 @@ export class AuthService {
     }
 
     const payload: TokenPayload = {
-      userId,
       name: user.name,
+      userName: user.userName,
     };
 
     const accessToken = await this.getAccessToken(payload);
@@ -80,31 +80,33 @@ export class AuthService {
   }
 
   async getUser(params: User): Promise<AuthResponse.GetUser> {
-    const user = await this.findOneByUserId(params.userId);
+    const user = await this.findOneByUserName(params.userName);
 
     const res = {
-      id: user.id,
-      name: user.name,
       userId: user.userId,
+      name: user.name,
+      userName: user.userName,
     };
 
     return res;
   }
 
-  async findOneByUserId(userId: string): Promise<User> {
-    const user = await this.userRepository.findOneBy({ userId: userId });
+  async findOneByUserName(userName: string): Promise<User> {
+    const user = await this.userRepository.findOneBy({ userName });
 
     return user;
   }
 
   async getAccessToken(payload: TokenPayload): Promise<string> {
     return this.jwtService.sign(payload, {
+      secret: jwtConfig.accessSecret,
       expiresIn: jwtConfig.accessExpiresIn,
     });
   }
 
   async getRefreshToken(payload: TokenPayload): Promise<string> {
     return this.jwtService.sign(payload, {
+      secret: jwtConfig.refreshSecret,
       expiresIn: jwtConfig.refreshExpiresIn,
     });
   }

@@ -18,6 +18,9 @@ export class Comment extends BaseEntity {
   id: number;
 
   @Column()
+  commentId: number;
+
+  @Column()
   content: string;
 
   @CreateDateColumn()
@@ -30,10 +33,10 @@ export class Comment extends BaseEntity {
   deletedAt: Date;
 
   @ManyToOne(() => User, (user) => user.userId, { cascade: true })
-  @JoinColumn({ name: 'user_id' })
+  @JoinColumn({ name: 'userId' })
   user: User;
 
   @ManyToOne(() => Board, (board) => board.commentList)
-  @JoinColumn({ name: 'board_id' })
+  @JoinColumn({ name: 'boardId' })
   board: Board;
 }

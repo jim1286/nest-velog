@@ -1,7 +1,7 @@
 export interface GetUser {
-  id: number;
-  name: string;
   userId: string;
+  name: string;
+  userName: string;
 }
 
 export interface SignIn {

@@ -18,6 +18,9 @@ export class Board extends BaseEntity {
   id: number;
 
   @Column()
+  boardId: number;
+
+  @Column()
   title: string;
 
   @Column()
@@ -36,7 +39,7 @@ export class Board extends BaseEntity {
   deletedAt: Date;
 
   @ManyToOne(() => User, (user) => user.boardList)
-  @JoinColumn({ name: 'user_id' })
+  @JoinColumn({ name: 'userId' })
   user: User;
 
   @OneToMany(() => Comment, (comment) => comment.board)

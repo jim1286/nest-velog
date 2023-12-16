@@ -19,7 +19,7 @@ import { AuthResponse } from '@/response';
 import { SwaggerBody, SwaggerParams, SwaggerResponse } from './swagger';
 import { GetUser } from '@/decorator';
 import { User } from '@/entity';
-import { AccessTokenStrategy } from '@/strategy';
+import { AuthGuard } from '@/guard';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -50,8 +50,8 @@ export class AuthController {
     return this.authService.signIn(signInDto);
   }
 
-  @Get('/me')
-  @UseGuards(AccessTokenStrategy)
+  @Get('/user')
+  @UseGuards(AuthGuard)
   @ApiOperation({ summary: '유저 정보 가져오기' })
   @ApiCreatedResponse({
     description: '유저의 정보를 가져온다',

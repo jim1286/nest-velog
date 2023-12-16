@@ -7,7 +7,7 @@ export class SignUpDto {
   @IsString()
   @MinLength(4)
   @MaxLength(20)
-  userId: string;
+  userName: string;
 
   @IsString()
   @Matches(/^[a-zA-Z0-9]*$/, {
@@ -20,7 +20,7 @@ export class SignInDto {
   @IsString()
   @MinLength(4)
   @MaxLength(20)
-  userId: string;
+  userName: string;
 
   @IsString()
   password: string;

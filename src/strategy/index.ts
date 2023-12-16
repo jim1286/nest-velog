@@ -1,1 +1,1 @@
-export * from './accessToken.strategy';
+export * from './jwt.strategy';

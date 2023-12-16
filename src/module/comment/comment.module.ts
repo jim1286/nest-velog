@@ -4,11 +4,11 @@ import { CommentService } from './comment.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Board, Comment } from '@/entity';
 import { AuthModule } from '../auth';
-import { AccessTokenStrategy } from '@/strategy';
+import { JwtStrategy } from '@/strategy';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Comment, Board]), AuthModule],
   controllers: [CommentController],
-  providers: [CommentService, AccessTokenStrategy],
+  providers: [CommentService, JwtStrategy],
 })
 export class CommentModule {}

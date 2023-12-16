@@ -7,7 +7,7 @@ import { AuthModule } from '..';
 import { FileService } from '../file/file.service';
 import { MulterModule } from '@nestjs/platform-express';
 import { MulterConfigService } from '@/config';
-import { AccessTokenStrategy } from '@/strategy';
+import { JwtStrategy } from '@/strategy';
 
 @Module({
   imports: [
@@ -18,7 +18,7 @@ import { AccessTokenStrategy } from '@/strategy';
     }),
   ],
   controllers: [BoardController],
-  providers: [BoardService, FileService, AccessTokenStrategy],
+  providers: [BoardService, FileService, JwtStrategy],
   exports: [BoardService],
 })
 export class BoardModule {}
