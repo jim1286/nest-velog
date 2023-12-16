@@ -1,0 +1,267 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/auth/signup": {
+      "post": {
+        "operationId": "AuthController_signUp",
+        "summary": "유저 회원가입",
+        "description": "유저 회원가입을 위해 name, userId, password를 보낸다.",
+        "parameters": [
+          {
+            "name": "params",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "enum": ["name", "userId", "password"],
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/SignUp" }
+            }
+          }
+        },
+        "responses": { "201": { "description": "" } },
+        "tags": ["Auth"]
+      }
+    },
+    "/auth/signin": {
+      "post": {
+        "operationId": "AuthController_signIn",
+        "summary": "유저 로그인",
+        "description": "유저 로그인을 위해 userId, password를 보낸다.",
+        "parameters": [
+          {
+            "name": "params",
+            "required": true,
+            "in": "query",
+            "schema": { "enum": ["userId", "password"], "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/SignIn" }
+            }
+          }
+        },
+        "responses": { "201": { "description": "" } },
+        "tags": ["Auth"]
+      }
+    },
+    "/auth/me": {
+      "get": {
+        "operationId": "AuthController_getUser",
+        "summary": "유저 정보 가져오기",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "유저의 정보를 가져온다",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/GetUser" }
+              }
+            }
+          }
+        },
+        "tags": ["Auth"]
+      }
+    },
+    "/board/all": {
+      "get": {
+        "operationId": "BoardController_getAllBoardList",
+        "summary": "모든 게시판 가져오기",
+        "parameters": [],
+        "responses": { "200": { "description": "" } },
+        "tags": ["Board"]
+      }
+    },
+    "/board/{id}": {
+      "get": {
+        "operationId": "BoardController_getBoardById",
+        "summary": "모든 게시판 가져오기",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "number" }
+          }
+        ],
+        "responses": { "200": { "description": "" } },
+        "tags": ["Board"]
+      },
+      "delete": {
+        "operationId": "BoardController_deleteBoardById",
+        "summary": "게시판 지우기",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "number" }
+          }
+        ],
+        "responses": { "200": { "description": "" } },
+        "tags": ["Board"]
+      },
+      "put": {
+        "operationId": "BoardController_updateBoardById",
+        "summary": "게시판 업데이트",
+        "description": "title과 content를 보낸다.",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "number" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateDto" }
+            }
+          }
+        },
+        "responses": { "200": { "description": "" } },
+        "tags": ["Board"]
+      }
+    },
+    "/board/create": {
+      "post": {
+        "operationId": "BoardController_createBoard",
+        "summary": "게시판 생성",
+        "description": "title과 content를 보낸다.",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateDto" }
+            }
+          }
+        },
+        "responses": { "201": { "description": "" } },
+        "tags": ["Board"]
+      }
+    },
+    "/comment": {
+      "post": {
+        "operationId": "CommentController_createComment",
+        "summary": "댓글 생성",
+        "description": "board의 id와 content를 보낸다.",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateDto" }
+            }
+          }
+        },
+        "responses": { "201": { "description": "" } },
+        "tags": ["Comment"]
+      },
+      "put": {
+        "operationId": "CommentController_updateComment",
+        "summary": "댓글 업데이트",
+        "description": "board의 id와 content를 보낸다.",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateDto" }
+            }
+          }
+        },
+        "responses": { "200": { "description": "" } },
+        "tags": ["Comment"]
+      },
+      "delete": {
+        "operationId": "CommentController_deleteComment",
+        "summary": "댓글 삭제",
+        "description": "comment의 id를 보낸다.",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/DeleteDto" }
+            }
+          }
+        },
+        "responses": { "200": { "description": "" } },
+        "tags": ["Comment"]
+      }
+    }
+  },
+  "info": {
+    "title": "Velog API",
+    "description": "API docs",
+    "version": "1.0.0",
+    "contact": {}
+  },
+  "tags": [{ "name": "swagger", "description": "" }],
+  "servers": [],
+  "components": {
+    "schemas": {
+      "SignUp": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "황지민",
+            "description": "userId"
+          },
+          "userId": {
+            "type": "string",
+            "example": "jimin",
+            "description": "userId"
+          },
+          "password": {
+            "type": "string",
+            "example": "1234",
+            "description": "password"
+          }
+        },
+        "required": ["name", "userId", "password"]
+      },
+      "SignIn": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "example": "jimin",
+            "description": "userId"
+          },
+          "password": {
+            "type": "string",
+            "example": "1234",
+            "description": "password"
+          }
+        },
+        "required": ["userId", "password"]
+      },
+      "GetUser": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "example": "1" },
+          "name": { "type": "string", "example": "John Doe" },
+          "userId": { "type": "string", "example": "John123" }
+        },
+        "required": ["id", "name", "userId"]
+      },
+      "UpdateDto": { "type": "object", "properties": {} },
+      "CreateDto": { "type": "object", "properties": {} },
+      "DeleteDto": { "type": "object", "properties": {} }
+    }
+  }
+}
