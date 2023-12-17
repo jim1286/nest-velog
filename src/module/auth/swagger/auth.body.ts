@@ -3,10 +3,10 @@ import { ApiProperty } from '@nestjs/swagger';
 export class SignIn {
   @ApiProperty({
     example: 'jimin',
-    description: 'userId',
+    description: 'userName',
     required: true,
   })
-  public userId: string;
+  public userName: string;
   @ApiProperty({
     example: '1234',
     description: 'password',
@@ -24,10 +24,10 @@ export class SignUp {
   public name: string;
   @ApiProperty({
     example: 'jimin',
-    description: 'userId',
+    description: 'userName',
     required: true,
   })
-  public userId: string;
+  public userName: string;
   @ApiProperty({
     example: '1234',
     description: 'password',

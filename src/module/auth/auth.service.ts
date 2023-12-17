@@ -40,6 +40,8 @@ export class AuthService {
 
     try {
       await this.userRepository.save(user);
+      delete user.password;
+      return user;
     } catch (error) {
       if (error.code === '23505') {
         throw new ConflictException('EXIST_USER_ID');

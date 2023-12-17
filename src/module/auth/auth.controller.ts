@@ -26,21 +26,10 @@ import { AuthGuard } from '@/guard';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post('/signup')
-  @ApiOperation({
-    summary: '유저 회원가입',
-    description: '유저 회원가입을 위해 name, userId, password를 보낸다.',
-  })
-  @ApiBody({ type: SwaggerBody.SignUp })
-  @ApiQuery(SwaggerParams.SignUp)
-  signUp(@Body(ValidationPipe) signUpDto: UserDto.SignUpDto) {
-    return this.authService.signUp(signUpDto);
-  }
-
   @Post('/signin')
   @ApiOperation({
     summary: '유저 로그인',
-    description: '유저 로그인을 위해 userId, password를 보낸다.',
+    description: '유저 로그인을 위해 userName, password를 보낸다.',
   })
   @ApiBody({ type: SwaggerBody.SignIn })
   @ApiQuery(SwaggerParams.SignIn)
@@ -48,6 +37,17 @@ export class AuthController {
     @Body(ValidationPipe) signInDto: UserDto.SignInDto,
   ): Promise<AuthResponse.SignIn> {
     return this.authService.signIn(signInDto);
+  }
+
+  @Post('/signup')
+  @ApiOperation({
+    summary: '유저 회원가입',
+    description: '유저 회원가입을 위해 name, userName, password를 보낸다.',
+  })
+  @ApiBody({ type: SwaggerBody.SignUp })
+  @ApiQuery(SwaggerParams.SignUp)
+  signUp(@Body(ValidationPipe) signUpDto: UserDto.SignUpDto) {
+    return this.authService.signUp(signUpDto);
   }
 
   @Get('/user')

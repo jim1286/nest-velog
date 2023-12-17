@@ -12,10 +12,10 @@ import { GetUser } from '@/decorator';
 import { User } from '@/entity';
 import { CommentDto } from '@/dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { JwtStrategy } from '@/strategy';
+import { AuthGuard } from '@/guard';
 
 @ApiTags('Comment')
-@UseGuards(JwtStrategy)
+@UseGuards(AuthGuard)
 @Controller('comment')
 export class CommentController {
   constructor(private readonly commentService: CommentService) {}

@@ -9,7 +9,7 @@ import {
 import { Board, Comment } from '.';
 
 @Entity()
-@Unique(['userId'])
+@Unique(['userName'])
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;

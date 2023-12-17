@@ -19,11 +19,10 @@ const jwtConfig = config.get('jwt');
         expiresIn: jwtConfig.accessExpiresIn,
       },
     }),
-    PassportModule.register({ defaultStrategy: 'jwt' }),
     TypeOrmModule.forFeature([User]),
   ],
   controllers: [AuthController],
   providers: [AuthService, JwtStrategy],
-  exports: [JwtStrategy, PassportModule, AuthService],
+  exports: [AuthService],
 })
 export class AuthModule {}

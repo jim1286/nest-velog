@@ -18,10 +18,10 @@ import { GetUser } from '@/decorator';
 import { Board, User } from '@/entity';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { JwtStrategy } from '@/strategy';
+import { AuthGuard } from '@/guard';
 
 @ApiTags('Board')
-@UseGuards(JwtStrategy)
+@UseGuards(AuthGuard)
 @Controller('board')
 export class BoardController {
   constructor(private readonly boardService: BoardService) {}
