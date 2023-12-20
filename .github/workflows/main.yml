@@ -44,8 +44,6 @@ jobs:
           key: ${{ secrets.EC2_PRIVATE_KEY}}
           port: ${{ secrets.EC2_PORT }}
           script: |
-            cd project_dir
-            docker system prune -a --volumes -f
-            docker compose pull -q
-            docker compose up --force-recreate --build -d --quiet-pull 2>log.out
-            cat log.out
+            sudo docker pull ${{ secrets.DOCKER_HUB_USERNAME  }}/velog-nest:latest
+            sudo docker run -d -p 3000:3000 ${{ secrets.DOCKER_HUB_USERNAME  }}/velog-nest:latest
+            sudo docker image prune -f
