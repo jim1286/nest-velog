@@ -31,7 +31,6 @@ jobs:
           tags: ${{ secrets.DOCKER_HUB_USERNAME  }}/velog-nest:latest
           cache-from: type=gha # 여기서 gha 는 Guthub Actions 용 캐시를 의미합니다.
           cache-to: type=gha,mode=max
-
   deploy:
     needs: build
     runs-on: ubuntu-latest
