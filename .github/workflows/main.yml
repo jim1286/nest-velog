@@ -42,7 +42,7 @@ jobs:
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
-          secret: ${{ secrets.EC2_PRIVATE_KEY}}
+          key: ${{ secrets.EC2_PRIVATE_KEY}}
           port: ${{ secrets.PORT }}
           script: |
             cd project_dir
