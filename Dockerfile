@@ -7,10 +7,13 @@ RUN mkdir -p /app
 WORKDIR /app
 
 # 프로젝트 전체를 work directory에 추가
-COPY . .
+COPY . /app/
 
 # 프로젝트에 사용되는 의존성 설치
 RUN npm install
+
+# Bundle app source
+COPY . .
 
 # NEST.JS 빌드
 RUN npm run build
