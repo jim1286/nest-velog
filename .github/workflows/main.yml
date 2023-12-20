@@ -39,10 +39,10 @@ jobs:
       - name: ssh connect & production
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_PRIVATE_KEY}}
-          port: ${{ secrets.PORT }}
+          port: ${{ secrets.EC2_PORT }}
           script: |
             cd project_dir
             docker system prune -a --volumes -f
