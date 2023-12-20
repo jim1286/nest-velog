@@ -7,13 +7,15 @@ RUN mkdir -p /app
 WORKDIR /app
 
 # 프로젝트 전체를 work directory에 추가
-COPY . /app/
+COPY . .
 
 # 프로젝트에 사용되는 의존성 설치
 RUN npm install
 
 # NEST.JS 빌드
 RUN npm run build
+
+EXPOSE 8000
 
 # Start the server using the production build
 CMD ["node","dist/main.js" ]
