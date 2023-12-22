@@ -36,4 +36,3 @@ networks:
   webnet:
 volumes:
   api-db:
-    #  pgdata:
