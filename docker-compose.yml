@@ -1,0 +1,39 @@
+version: '3.9'
+
+services:
+  main:
+    container_name: main
+    build:
+      context: . ## Dockerfile이 있는 경로 (절대경로 또는 상대경로)
+    volumes:
+      - .:/var/app
+      - /var/app/node_modules
+    ports:
+      - 8090:3000 # // 호스트 포트:컨테이너 포트, docker run -p 8090:3000  main이랑 같음.      - 8090:3000
+    command: npm run dev
+  # 쓰기 전용 데이터베이스
+  postgres:
+    image: postgres:16.1-alpine
+    # 컨테이너 실행 시 재시작
+    restart: always
+    # 컨테이너명 설정
+    container_name: postgres
+    # 접근 포트 설정 (컨테이너 외부:컨테이너 내부)
+    ports:
+      - '5432:5432'
+    # 환경 변수 설정
+    environment:
+      # PostgreSQL 계정 및 패스워드 설정 옵션
+      POSTGRES_DB: 'velog'
+      POSTGRES_USER: 'jimiin'
+      POSTGRES_PASSWORD: '1286'
+    networks:
+      - webnet
+    volumes:
+      - api-db:/var/lib/postgresql/data
+
+networks:
+  webnet:
+volumes:
+  api-db:
+    #  pgdata:

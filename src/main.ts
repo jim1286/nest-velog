@@ -18,7 +18,7 @@ async function bootstrap() {
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
 
   const serverConfig = config.get('server');
-  const port = serverConfig.port;
+  const port = serverConfig.port || 3000;
   await app.listen(port);
   console.log(`listening on port ${port}`);
 

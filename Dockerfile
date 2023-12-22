@@ -1,10 +1,10 @@
 # 베이스 이미지로 nodejs alpine 사용 
 # 일반 nodejs보다 컴팩트해서 도커 빌드 용량이 감소한다 (1.2GB->350MB정도)
-FROM node:20-alpine
+FROM node:lts-alpine
 
 # 명령어를 실행할 work directory 생성
-RUN mkdir -p /app
-WORKDIR /app
+RUN mkdir -p /var/app
+WORKDIR /var/app
 
 # 프로젝트 전체를 work directory에 추가
 COPY . .
@@ -15,7 +15,8 @@ RUN npm install
 # NEST.JS 빌드
 RUN npm run build
 
-EXPOSE 8000
+# port 3000으로
+EXPOSE 3000
 
 # Start the server using the production build
 CMD ["node","dist/main.js" ]
