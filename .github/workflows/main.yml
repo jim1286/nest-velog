@@ -44,7 +44,5 @@ jobs:
           key: ${{ secrets.EC2_PRIVATE_KEY}}
           port: ${{ secrets.EC2_PORT }}
           script: |
-            sudo docker rm ${{ secrets.DOCKER_HUB_USERNAME  }}/velog-nest
-            sudo docker rmi ${{ secrets.DOCKER_HUB_USERNAME  }}/velog-nest:latest
             sudo docker pull ${{ secrets.DOCKER_HUB_USERNAME  }}/velog-nest:latest
             sudo docker run -d -p 3000:3000 ${{ secrets.DOCKER_HUB_USERNAME  }}/velog-nest:latest
